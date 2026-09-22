@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart'; // 👈 استدعاء مكتبة الحماية
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'notification_service.dart';
 
 class WeatherService {
@@ -14,20 +14,31 @@ class WeatherService {
   }) {
     List<String> alerts = [];
     String lowerCondition = condition.toLowerCase();
-    bool isRaining = lowerCondition.contains('rain') || lowerCondition.contains('drizzle') || lowerCondition.contains('shower');
+    bool isRaining =
+        lowerCondition.contains('rain') ||
+        lowerCondition.contains('drizzle') ||
+        lowerCondition.contains('shower');
 
     if (temp >= 35) {
-      alerts.add("🍅 Tomato Alert: High temperature (${temp.round()}°C). Risk of blossom drop. Ensure deep watering.");
+      alerts.add(
+        "🍅 Tomato Alert: High temperature (${temp.round()}°C). Risk of blossom drop. Ensure deep watering.",
+      );
     } else if (temp <= 10) {
-      alerts.add("🍅 Tomato Alert: Cold warning (${temp.round()}°C). Risk of frost damage. Cover young plants!");
+      alerts.add(
+        "🍅 Tomato Alert: Cold warning (${temp.round()}°C). Risk of frost damage. Cover young plants!",
+      );
     }
 
     if (temp >= 28 && temp < 35) {
-      alerts.add("🥔 Potato Alert: Warm temperatures (${temp.round()}°C) may halt tuber growth. Keep soil moist.");
+      alerts.add(
+        "🥔 Potato Alert: Warm temperatures (${temp.round()}°C) may halt tuber growth. Keep soil moist.",
+      );
     }
 
     if (isRaining || humidity > 80) {
-      alerts.add("🌧️ Fungal Risk: High moisture detected. Check plants for Late Blight. Avoid overhead watering.");
+      alerts.add(
+        "🌧️ Fungal Risk: High moisture detected. Check plants for Late Blight. Avoid overhead watering.",
+      );
     }
 
     return alerts;
@@ -44,8 +55,9 @@ class WeatherService {
         if (permission == LocationPermission.denied) {
           permission = await Geolocator.requestPermission();
         }
-        
-        if (permission == LocationPermission.whileInUse || permission == LocationPermission.always) {
+
+        if (permission == LocationPermission.whileInUse ||
+            permission == LocationPermission.always) {
           Position position = await Geolocator.getCurrentPosition(
             timeLimit: const Duration(seconds: 3),
           );
@@ -68,9 +80,12 @@ class WeatherService {
       }
 
       final loc = await _getSafeLocation();
-      final url = 'https://api.weatherapi.com/v1/current.json?key=$_apiKey&q=${loc['lat']},${loc['lon']}';
-      
-      final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
+      final url =
+          'https://api.weatherapi.com/v1/current.json?key=$_apiKey&q=${loc['lat']},${loc['lon']}';
+
+      final response = await http
+          .get(Uri.parse(url))
+          .timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -78,13 +93,17 @@ class WeatherService {
         String condition = data['current']['condition']['text'];
         int humidity = data['current']['humidity'];
 
-        List<String> alerts = analyzeCropWeather(temp: temp, condition: condition, humidity: humidity);
+        List<String> alerts = analyzeCropWeather(
+          temp: temp,
+          condition: condition,
+          humidity: humidity,
+        );
 
         for (String alert in alerts) {
-           String title = 'SpudTom Alert 🚨';
-           if (alert.contains('🍅')) title = 'Tomato Alert 🍅';
-           if (alert.contains('🥔')) title = 'Potato Alert 🥔';
-           if (alert.contains('🌧️')) title = 'Fungal Risk 🌧️';
+          String title = 'SpudTom Alert 🚨';
+          if (alert.contains('🍅')) title = 'Tomato Alert 🍅';
+          if (alert.contains('🥔')) title = 'Potato Alert 🥔';
+          if (alert.contains('🌧️')) title = 'Fungal Risk 🌧️';
 
           _triggerAlerts(context, title, alert);
         }
@@ -94,16 +113,25 @@ class WeatherService {
     }
   }
 
-  static void _triggerAlerts(BuildContext context, String title, String message) {
+  static void _triggerAlerts(
+    BuildContext context,
+    String title,
+    String message,
+  ) {
     NotificationService.showAndSaveNotification(title: title, body: message);
 
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(message, style: const TextStyle(fontWeight: FontWeight.bold)),
+          content: Text(
+            message,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
           backgroundColor: Colors.red,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           margin: const EdgeInsets.all(20),
           duration: const Duration(seconds: 5),
         ),
@@ -116,9 +144,12 @@ class WeatherService {
       if (_apiKey.isEmpty) return;
 
       final loc = await _getSafeLocation();
-      final url = 'https://api.weatherapi.com/v1/current.json?key=$_apiKey&q=${loc['lat']},${loc['lon']}';
-      
-      final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
+      final url =
+          'https://api.weatherapi.com/v1/current.json?key=$_apiKey&q=${loc['lat']},${loc['lon']}';
+
+      final response = await http
+          .get(Uri.parse(url))
+          .timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -126,15 +157,22 @@ class WeatherService {
         String condition = data['current']['condition']['text'];
         int humidity = data['current']['humidity'];
 
-        List<String> alerts = analyzeCropWeather(temp: temp, condition: condition, humidity: humidity);
+        List<String> alerts = analyzeCropWeather(
+          temp: temp,
+          condition: condition,
+          humidity: humidity,
+        );
 
         for (String alert in alerts) {
-           String title = 'SpudTom Alert 🚨';
-           if (alert.contains('🍅')) title = 'Tomato Alert 🍅';
-           if (alert.contains('🥔')) title = 'Potato Alert 🥔';
-           if (alert.contains('🌧️')) title = 'Fungal Risk 🌧️';
+          String title = 'SpudTom Alert 🚨';
+          if (alert.contains('🍅')) title = 'Tomato Alert 🍅';
+          if (alert.contains('🥔')) title = 'Potato Alert 🥔';
+          if (alert.contains('🌧️')) title = 'Fungal Risk 🌧️';
 
-          await NotificationService.showAndSaveNotification(title: title, body: alert);
+          await NotificationService.showAndSaveNotification(
+            title: title,
+            body: alert,
+          );
         }
       }
     } catch (e) {
@@ -150,9 +188,12 @@ class WeatherService {
       }
 
       final loc = await _getSafeLocation();
-      final url = 'https://api.weatherapi.com/v1/current.json?key=$_apiKey&q=${loc['lat']},${loc['lon']}';
-      
-      final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
+      final url =
+          'https://api.weatherapi.com/v1/current.json?key=$_apiKey&q=${loc['lat']},${loc['lon']}';
+
+      final response = await http
+          .get(Uri.parse(url))
+          .timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
@@ -175,10 +216,13 @@ class WeatherService {
           if (alert.contains('🥔')) title = 'Potato Alert 🥔';
           if (alert.contains('🌧️')) title = 'Fungal Risk 🌧️';
 
-          await NotificationService.showAndSaveNotification(title: title, body: alert);
+          await NotificationService.showAndSaveNotification(
+            title: title,
+            body: alert,
+          );
         }
 
-        return data; 
+        return data;
       }
     } catch (e) {
       debugPrint("Fetch Weather UI Exception: $e");

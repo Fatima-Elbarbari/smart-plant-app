@@ -48,7 +48,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // الهيكل والخطوط الأصلية بتاعتك بالكامل بدون أي تغيير 👇
     final baseTheme = ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
@@ -143,7 +142,6 @@ class MyApp extends StatelessWidget {
           space: 1,
         ),
       ),
-      // التعديل الذكي لفحص حالة تسجيل الدخول التلقائي بدون لمس باقي التصميم
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
@@ -156,10 +154,10 @@ class MyApp extends StatelessWidget {
           }
 
           if (snapshot.hasData && snapshot.data != null) {
-            return const HomeScreen(); // لو مسجل دخول يفتح علطول
+            return const HomeScreen();
           }
 
-          return const SplashScreen(); // لو مش مسجل يفتح الـ Splash الـ عادية
+          return const SplashScreen();
         },
       ),
     );

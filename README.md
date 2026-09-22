@@ -1,17 +1,80 @@
-# spudtom
+\# 🌱 Smart Plant App
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+A cross-platform mobile application built with \*\*Flutter\*\* and \*\*Dart\*\* for smart crop monitoring and plant health tracking, focused on tomato and potato cultivation. Developed as a graduation project integrating AI/ML models for real-time plant disease diagnosis.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+\## Features
+
+
+
+\- 🌿 \*\*Growth Tracking\*\* – Monitor tomato growth stages over time.
+
+\- 🔬 \*\*AI Disease Detection\*\* – Identifies 2 major diseases affecting tomato and potato crops using an integrated ML model (90% accuracy).
+
+\- 💊 \*\*Treatment Plans\*\* – Automatically generates a treatment plan once a disease is diagnosed.
+
+\- 🌡️ \*\*Weather-Based Alerts\*\* – Sends warning notifications based on temperature conditions.
+
+\- 🤖 \*\*Farming Chatbot\*\* – Answers questions about tomato and potato cultivation.
+
+\- 📚 \*\*Reference Library\*\* – A collection of resources covering various vegetable families.
+
+
+
+\## Tech Stack
+
+
+
+\- \*\*Framework:\*\* Flutter, Dart
+
+\- \*\*Backend/Communication:\*\* RESTful APIs
+
+\- \*\*AI/ML:\*\* Integrated diagnostic model for disease detection
+
+\- \*\*Tools:\*\* Git, GitHub, VS Code
+
+
+
+\## Screenshots
+
+
+
+
+
+
+
+!\[Home Screen](screenshots/home\_screen.png)
+
+
+
+
+
+
+
+
+
+!\[Dashboard](screenshots/dashboard.png)
+
+
+
+
+
+
+
+\## Getting Started
+
+
+
+```bash
+
+git clone https://github.com/Fatima-Elbarbari/smart-plant-app.git
+
+cd smart-plant-app
+
+flutter pub get
+
+flutter run
+

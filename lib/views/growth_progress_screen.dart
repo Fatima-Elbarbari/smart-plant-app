@@ -152,8 +152,9 @@ class _GrowthProgressScreenState extends State<GrowthProgressScreen> {
   }
 
   void _showEditNameDialog(int index) {
-    final TextEditingController editNameController =
-        TextEditingController(text: _plants[index]['name']);
+    final TextEditingController editNameController = TextEditingController(
+      text: _plants[index]['name'],
+    );
 
     showDialog(
       context: context,
@@ -773,7 +774,6 @@ class _GrowthProgressScreenState extends State<GrowthProgressScreen> {
             builder: (context) => GrowthDetailScreen(plantData: plant),
           ),
         ).then((_) {
-          // تحديث الشاشة بعد الرجوع لو حصل تعديل جوا الشاشة
           setState(() {});
         });
       },
@@ -860,7 +860,6 @@ class _GrowthProgressScreenState extends State<GrowthProgressScreen> {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // 👇 الأيقونة الجديدة بتاعة التعديل
                 IconButton(
                   icon: const Icon(
                     Icons.edit_outlined,
