@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:spudtom/constants/app_colors.dart';
 import 'package:spudtom/views/splash_screen.dart';
+import 'package:spudtom/views/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,14 +40,15 @@ void main() async {
     await prefs.remove('scan_history');
   }
 
-  runApp(const SpudTomApp());
+  runApp(const MyApp());
 }
 
-class SpudTomApp extends StatelessWidget {
-  const SpudTomApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // الهيكل والخطوط الأصلية بتاعتك بالكامل بدون أي تغيير 👇
     final baseTheme = ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
@@ -141,7 +143,25 @@ class SpudTomApp extends StatelessWidget {
           space: 1,
         ),
       ),
-      home: const SplashScreen(),
+      // التعديل الذكي لفحص حالة تسجيل الدخول التلقائي بدون لمس باقي التصميم
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(color: AppColors.primaryGreen),
+              ),
+            );
+          }
+
+          if (snapshot.hasData && snapshot.data != null) {
+            return const HomeScreen(); // لو مسجل دخول يفتح علطول
+          }
+
+          return const SplashScreen(); // لو مش مسجل يفتح الـ Splash الـ عادية
+        },
+      ),
     );
   }
 }
