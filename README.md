@@ -92,7 +92,7 @@ A cross-platform mobile application built with \*\*Flutter\*\* and \*\*Dart\*\* 
 
 
 
-!\[Growth Progress](screenshots/growth\_progress.png)
+!\[Growth Progress](screenshots/growth\_progress.jpeg)
 
 
 
@@ -151,5 +151,6 @@ cd smart-plant-app
 flutter pub get
 
 flutter run
+
 
 
