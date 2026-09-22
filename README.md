@@ -42,11 +42,7 @@ A cross-platform mobile application built with \*\*Flutter\*\* and \*\*Dart\*\* 
 
 
 
-
-
-
-
-!\[Home Screen](screenshots/home\_screen.png)
+!\[Splash Screen](screenshots/splash.png)
 
 
 
@@ -56,9 +52,87 @@ A cross-platform mobile application built with \*\*Flutter\*\* and \*\*Dart\*\* 
 
 
 
-!\[Dashboard](screenshots/dashboard.png)
+!\[Login](screenshots/login.png)
 
 
+
+
+
+
+
+
+
+!\[Home Screen](screenshots/home.png)
+
+
+
+
+
+
+
+
+
+!\[Disease Camera Scan](screenshots/camera.png)
+
+
+
+
+
+
+
+
+
+!\[Diagnose Result](screenshots/diagnose\_result.png)
+
+
+
+
+
+
+
+
+
+!\[Growth Progress](screenshots/growth\_progress.png)
+
+
+
+
+
+
+
+
+
+!\[Plant Care Tips](screenshots/plant\_care\_tips.png)
+
+
+
+
+
+
+
+
+
+!\[Plant Library](screenshots/plant\_library.png)
+
+
+
+
+
+
+
+
+
+!\[AI Chatbot](screenshots/chatbot.png)
+
+
+
+
+
+
+
+
+
+!\[Profile](screenshots/profile.png)
 
 
 
@@ -77,4 +151,5 @@ cd smart-plant-app
 flutter pub get
 
 flutter run
+
 
